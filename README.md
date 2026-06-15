@@ -41,6 +41,20 @@ npm run build
 npm start
 ```
 
+## Deploy on Vercel
+
+1. Import the repo: [github.com/Paramount-Intelligence/Ash-shajrah](https://github.com/Paramount-Intelligence/Ash-shajrah)
+2. Vercel auto-detects **Next.js** (see `vercel.json` in the project root).
+3. Use default settings — **Build Command:** `npm run build`, **Output:** Next.js default.
+4. Deploy. No environment variables are required for the landing page.
+
+Or via CLI:
+
+```bash
+npm i -g vercel
+vercel
+```
+
 ## Live Site
 
 [ash-shajrah.vercel.app](https://ash-shajrah.vercel.app)
