@@ -5,17 +5,25 @@ import { SITE } from "@/lib/data";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 
 function ContactRow({
-  label,
+  enLabel,
+  urLabel,
   children,
 }: {
-  label: string;
+  enLabel: string;
+  urLabel: string;
   children: ReactNode;
 }) {
   return (
     <li>
-      <span className="text-[11px] font-semibold uppercase tracking-wider text-gold-soft/75">
-        {label}
-      </span>
+      <div className="flex items-center gap-1.5">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-gold-soft/75">
+          {enLabel}
+        </span>
+        <span className="text-gold-soft/40">/</span>
+        <span dir="rtl" lang="ur" className="font-urdu text-[11px] leading-[2] text-gold-soft/60">
+          {urLabel}
+        </span>
+      </div>
       <div className="mt-1 text-sm font-medium leading-snug text-cream">{children}</div>
     </li>
   );
@@ -52,7 +60,7 @@ export function Footer() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-8 md:grid-cols-2 md:gap-x-10 lg:grid-cols-[1.1fr_1fr_1fr] lg:gap-x-0">
-          {/* Left — logo & tagline */}
+          {/* Left — logo & bilingual tagline */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left lg:pr-8">
             <a
               href="#"
@@ -60,18 +68,28 @@ export function Footer() {
             >
               <BrandLogo variant="footer" />
             </a>
-            <p className="mt-4 max-w-[240px] text-sm leading-relaxed text-cream/75">
-              {SITE.tagline}
+
+            {/* Bilingual phrase */}
+            <div className="mt-4">
+              <p className="font-display text-base tracking-wide text-gold-soft">
+                {SITE.footerPhrase}
+              </p>
+              <p dir="rtl" lang="ur" className="font-urdu mt-1 text-right text-sm leading-[2] text-gold-soft/75 md:text-left md:text-right">
+                {SITE.footerUrduPhrase}
+              </p>
+            </div>
+
+            <p className="mt-3 max-w-[240px] text-sm leading-relaxed text-cream/60">
+              {SITE.footerSupport}
             </p>
           </div>
 
           {/* Middle — contact */}
           <div className="border-cream/10 md:border-t-0 lg:border-l lg:pl-8 lg:pr-8">
-            <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-widest text-gold-soft/80 md:text-left">
-              Contact
-            </p>
+            <div className="mb-3 flex items-center gap-2">
+            </div>
             <ul className="flex flex-col gap-3.5">
-              <ContactRow label="WhatsApp">
+              <ContactRow enLabel="WhatsApp" urLabel="واٹس ایپ">
                 <a
                   href={SITE.contact.whatsapp}
                   target="_blank"
@@ -81,7 +99,7 @@ export function Footer() {
                   {SITE.contact.whatsappDisplay}
                 </a>
               </ContactRow>
-              <ContactRow label="Email">
+              <ContactRow enLabel="Email" urLabel="ای میل">
                 <a
                   href={`mailto:${SITE.contact.admissionEmail}`}
                   className="break-all transition-colors hover:text-gold-soft"
@@ -89,13 +107,13 @@ export function Footer() {
                   {SITE.contact.admissionEmail}
                 </a>
               </ContactRow>
-              <ContactRow label="Admin Office">
+              <ContactRow enLabel="Admin Office" urLabel="انتظامی دفتر">
                 <span className="text-cream/90">{SITE.contact.adminOffice}</span>
               </ContactRow>
             </ul>
           </div>
 
-          {/* Right — brand phrase & CTA */}
+          {/* Right — CTA */}
           <div className="flex flex-col items-center border-cream/10 text-center md:col-span-2 md:items-center lg:col-span-1 lg:border-l lg:items-start lg:pl-8 lg:text-left">
             <div className="relative">
               <div
@@ -103,19 +121,22 @@ export function Footer() {
                 aria-hidden
               />
               <p className="relative font-display text-xl tracking-wide text-gold-soft sm:text-[1.35rem]">
-                {SITE.footerPhrase}
+                {SITE.name}
               </p>
             </div>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-cream/70">
-              {SITE.footerSupport}
+              Early years learning, character, leadership — all from home.
             </p>
             <a
               href={SITE.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center justify-center rounded-full border border-gold/35 bg-gold/15 px-5 py-2.5 text-sm font-semibold text-cream transition-all duration-300 hover:border-gold/55 hover:bg-gold/25 hover:text-gold-soft"
+              className="mt-5 inline-flex flex-col items-center justify-center rounded-full border border-gold/35 bg-gold/15 px-5 py-2.5 text-sm font-semibold text-cream transition-all duration-300 hover:border-gold/55 hover:bg-gold/25 hover:text-gold-soft"
             >
-              Message Us on WhatsApp
+              <span>Message Us on WhatsApp</span>
+              <span dir="rtl" lang="ur" className="font-urdu text-xs leading-[2] text-cream/75">
+                واٹس ایپ پر پیغام بھیجیں
+              </span>
             </a>
           </div>
         </div>

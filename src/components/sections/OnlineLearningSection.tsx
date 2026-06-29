@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { scrollReveal } from "@/lib/animations";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LearningIcon } from "@/components/ui/LearningIcon";
 import { ONLINE_STEPS } from "@/lib/data";
+import { BilingualSectionHeader } from "@/components/ui/BilingualLayout";
 
-/** High-contrast readable palette for parent-facing copy */
 const TEXT = {
   heading: "text-[#063F32]",
   title: "text-[#063F32]",
@@ -21,9 +21,7 @@ function VideoCallMockup() {
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="h-3 w-3 animate-pulse rounded-full bg-emerald-light" />
-          <span
-            className={`text-sm font-semibold uppercase tracking-wider sm:text-[0.9375rem] ${TEXT.label}`}
-          >
+          <span className={`text-sm font-semibold uppercase tracking-wider sm:text-[0.9375rem] ${TEXT.label}`}>
             Online Session
           </span>
         </div>
@@ -32,14 +30,30 @@ function VideoCallMockup() {
         </span>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <div className="aspect-video rounded-xl bg-gradient-to-br from-emerald/20 to-emerald-deep/30" />
-        <div className="aspect-video rounded-xl bg-gradient-to-br from-gold/15 to-emerald/15" />
+        <div className="relative aspect-video overflow-hidden rounded-xl border border-emerald-100/60 bg-gradient-to-br from-emerald/20 to-emerald-deep/30">
+          <Image
+            src="/images/online-session-2.png"
+            alt="Online learning session"
+            fill
+            className="object-cover opacity-90 transition-opacity hover:opacity-100"
+            sizes="(max-width: 768px) 100vw, 240px"
+          />
+        </div>
+        <div className="relative aspect-video overflow-hidden rounded-xl border border-emerald-100/60 bg-gradient-to-br from-gold/15 to-emerald/15">
+          <Image
+            src="/images/online-session-1.png"
+            alt="Child learning online"
+            fill
+            className="object-cover opacity-90 transition-opacity hover:opacity-100"
+            sizes="(max-width: 768px) 100vw, 240px"
+          />
+        </div>
       </div>
       <div className="mt-4 flex flex-wrap gap-2.5">
-        {["Guide", "Activity", "Progress"].map((tab) => (
+        {["Guide / رہنما", "Activity / سرگرمی", "Progress / پیش رفت"].map((tab) => (
           <span
             key={tab}
-            className={`rounded-lg border border-emerald/15 bg-cream px-3.5 py-1.5 text-sm font-medium sm:text-[0.9375rem] ${TEXT.body}`}
+            className={`rounded-lg border border-emerald/15 bg-cream px-3 py-1.5 text-xs font-medium sm:text-sm ${TEXT.body}`}
           >
             {tab}
           </span>
@@ -52,20 +66,24 @@ function VideoCallMockup() {
 function ProgressMockup() {
   return (
     <div className="rounded-2xl border border-gold/20 bg-gradient-to-br from-white/95 to-cream/85 p-5 shadow-lg backdrop-blur-sm sm:p-6">
-      <p
-        className={`text-sm font-semibold uppercase tracking-wider sm:text-[0.9375rem] ${TEXT.label}`}
-      >
-        Weekly Progress
-      </p>
+      <div className="flex items-center justify-between gap-2">
+        <p className={`text-sm font-semibold uppercase tracking-wider sm:text-[0.9375rem] ${TEXT.label}`}>
+          Weekly Progress
+        </p>
+        <p dir="rtl" lang="ur" className={`font-urdu text-sm leading-[2] ${TEXT.label}`}>
+          ہفتہ وار پیش رفت
+        </p>
+      </div>
       <div className="mt-4 space-y-3.5">
         {[
-          { label: "Character", pct: 85 },
-          { label: "Creativity", pct: 72 },
-          { label: "Confidence", pct: 90 },
+          { en: "Character", ur: "کردار", pct: 85 },
+          { en: "Creativity", ur: "تخلیق", pct: 72 },
+          { en: "Confidence", ur: "اعتماد", pct: 90 },
         ].map((item) => (
-          <div key={item.label}>
+          <div key={item.en}>
             <div className={`mb-1.5 flex justify-between text-sm font-medium sm:text-base ${TEXT.title}`}>
-              <span className="font-semibold">{item.label}</span>
+              <span className="font-semibold">{item.en}</span>
+              <span dir="rtl" lang="ur" className="font-urdu leading-[2]">{item.ur}</span>
               <span className="font-bold text-gold">{item.pct}%</span>
             </div>
             <div className="h-2 overflow-hidden rounded-full bg-emerald/12">
@@ -139,10 +157,12 @@ export function OnlineLearningSection() {
       />
 
       <div className="relative mx-auto max-w-7xl">
-        <SectionHeading
-          title="How Online Learning Works"
-          subtitle="A clear, guided digital journey — from first connection to consistent growth at home."
-          className="[&_p]:text-base [&_p]:font-medium [&_p]:leading-relaxed [&_p]:text-[#245C4F] sm:[&_p]:text-lg"
+        <BilingualSectionHeader
+          urduTitle="آن لائن سیکھنے کا عمل"
+          urduSubtitle="پہلے رابطے سے گھر میں مستقل ترقی تک — ایک واضح، رہنمائی یافتہ ڈیجیٹل سفر۔"
+          englishTitle="How Online Learning Works"
+          englishSubtitle="A clear, guided digital journey — from first connection to consistent growth at home."
+          badge="How It Works"
         />
 
         <div className="grid items-start gap-12 lg:grid-cols-5 lg:gap-12 xl:gap-14">
@@ -172,14 +192,22 @@ export function OnlineLearningSection() {
                   </div>
 
                   <div className="min-w-0 flex-1 py-0.5">
-                    <h3
-                      className={`text-xl font-semibold leading-snug sm:text-[1.375rem] lg:text-[1.625rem] ${TEXT.title}`}
-                    >
+                    {/* Urdu title */}
+                    <p dir="rtl" lang="ur" className={`font-urdu text-right text-lg font-bold leading-[2] ${TEXT.title}`}>
+                      {step.urduTitle}
+                    </p>
+                    <p dir="rtl" lang="ur" className={`font-urdu mt-1 text-right text-sm leading-[2] ${TEXT.body}`}>
+                      {step.urduDescription}
+                    </p>
+
+                    {/* Divider */}
+                    <div className="my-3 h-px w-full bg-gradient-to-r from-gold/20 via-emerald/10 to-transparent" />
+
+                    {/* English title */}
+                    <h3 className={`text-xl font-semibold leading-snug sm:text-[1.375rem] lg:text-[1.625rem] ${TEXT.title}`}>
                       {step.title}
                     </h3>
-                    <p
-                      className={`mt-3 text-base font-normal leading-[1.7] sm:mt-3.5 sm:text-[1.0625rem] lg:text-[1.125rem] lg:leading-[1.75] ${TEXT.body}`}
-                    >
+                    <p className={`mt-3 text-base font-normal leading-[1.7] sm:mt-3.5 sm:text-[1.0625rem] lg:text-[1.125rem] lg:leading-[1.75] ${TEXT.body}`}>
                       {step.description}
                     </p>
                   </div>
@@ -198,14 +226,13 @@ export function OnlineLearningSection() {
               <ProgressMockup />
             </div>
             <div className="relative rounded-2xl border border-emerald/12 bg-emerald-deep/[0.06] px-5 py-5 text-center sm:px-6 sm:py-6">
-              <p
-                className={`text-sm font-semibold uppercase tracking-widest sm:text-[0.9375rem] ${TEXT.label}`}
-              >
+              <p className={`text-sm font-semibold uppercase tracking-widest sm:text-[0.9375rem] ${TEXT.label}`}>
                 Digital Learning Ecosystem
               </p>
-              <p
-                className={`mt-3 text-base font-medium leading-relaxed sm:text-[1.0625rem] lg:text-lg lg:leading-[1.65] ${TEXT.body}`}
-              >
+              <p dir="rtl" lang="ur" className={`font-urdu mt-1 text-sm leading-[2] ${TEXT.body}`}>
+                ڈیجیٹل تعلیمی نظام
+              </p>
+              <p className={`mt-3 text-base font-medium leading-relaxed sm:text-[1.0625rem] lg:text-lg lg:leading-[1.65] ${TEXT.body}`}>
                 Guided sessions • Home practice • Parent updates
               </p>
             </div>

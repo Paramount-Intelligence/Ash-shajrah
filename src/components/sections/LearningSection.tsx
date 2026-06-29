@@ -3,18 +3,22 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { scrollReveal } from "@/lib/animations";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LearningIcon } from "@/components/ui/LearningIcon";
 import { LEARNING_PILLARS } from "@/lib/data";
+import { BilingualSectionHeader } from "@/components/ui/BilingualLayout";
 
 function PillarCard({
   title,
   description,
+  urduTitle,
+  urduDescription,
   icon,
   index,
 }: {
   title: string;
   description: string;
+  urduTitle: string;
+  urduDescription: string;
   icon: string;
   index: number;
 }) {
@@ -22,22 +26,12 @@ function PillarCard({
 
   const handleEnter = () => {
     if (!cardRef.current) return;
-    gsap.to(cardRef.current, {
-      y: -8,
-      scale: 1.02,
-      duration: 0.4,
-      ease: "power2.out",
-    });
+    gsap.to(cardRef.current, { y: -8, scale: 1.02, duration: 0.4, ease: "power2.out" });
   };
 
   const handleLeave = () => {
     if (!cardRef.current) return;
-    gsap.to(cardRef.current, {
-      y: 0,
-      scale: 1,
-      duration: 0.4,
-      ease: "power2.out",
-    });
+    gsap.to(cardRef.current, { y: 0, scale: 1, duration: 0.4, ease: "power2.out" });
   };
 
   return (
@@ -53,6 +47,7 @@ function PillarCard({
       <div className="relative flex h-full flex-col rounded-2xl border border-emerald/10 bg-white/70 p-6 shadow-lg shadow-emerald-deep/5 backdrop-blur-md transition-all duration-500 group-hover:border-gold/35 group-hover:bg-white/85 group-hover:shadow-xl group-hover:shadow-emerald/10">
         <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/10 blur-2xl transition-all group-hover:bg-gold/20" />
 
+        {/* Icon row */}
         <div className="relative mb-5 flex items-start justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald/15 bg-gradient-to-br from-emerald/10 to-gold/10 text-emerald shadow-inner transition-all duration-500 group-hover:border-gold/30 group-hover:shadow-gold/20">
             <LearningIcon name={icon} className="h-6 w-6" />
@@ -62,10 +57,26 @@ function PillarCard({
           </span>
         </div>
 
-        <h3 className="font-display text-lg font-semibold leading-snug text-emerald-deep">
-          {title}
-        </h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-emerald/80">{description}</p>
+        {/* Urdu — top */}
+        <div dir="rtl" lang="ur" className="mb-3 text-right">
+          <h3 className="font-urdu text-lg font-bold leading-[1.9] text-emerald-deep">
+            {urduTitle}
+          </h3>
+          <p className="font-urdu mt-1 text-sm leading-[2] text-emerald/70">
+            {urduDescription}
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="my-3 h-px w-full bg-gradient-to-r from-gold/20 via-emerald/12 to-transparent" />
+
+        {/* English — bottom */}
+        <div dir="ltr" lang="en" className="text-left">
+          <h3 className="font-display text-base font-semibold leading-snug text-emerald-deep">
+            {title}
+          </h3>
+          <p className="mt-1.5 flex-1 text-sm leading-relaxed text-emerald/75">{description}</p>
+        </div>
 
         <div className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald/50 transition-colors group-hover:text-gold">
           <span className="h-px flex-1 bg-gradient-to-r from-transparent via-emerald/20 to-gold/40 group-hover:via-gold/40" />
@@ -128,7 +139,6 @@ export function LearningSection() {
         className="absolute -right-16 bottom-1/4 h-64 w-64 rounded-full bg-gold/10 blur-3xl"
       />
 
-      {/* Floating leaves */}
       {["🍃", "✦", "🍃"].map((leaf, i) => (
         <span
           key={i}
@@ -140,9 +150,12 @@ export function LearningSection() {
       ))}
 
       <div className="relative mx-auto max-w-7xl">
-        <SectionHeading
-          title="A Holistic Online Learning Experience"
-          subtitle="Premium digital learning designed for early years growth, values, creativity, and confident participation — all from home."
+        <BilingualSectionHeader
+          urduTitle="ایک متوازن آن لائن تعلیمی تجربہ"
+          urduSubtitle="ابتدائی بچپن کی نشوونما، اسلامی اقدار، تخلیقی صلاحیت، اعتماد، کردار سازی اور گھر پر والدین کی معاونت کے ساتھ ایک بامقصد آن لائن تعلیمی ماڈل۔"
+          englishTitle="Learning Approach"
+          englishSubtitle="A purposeful online learning model designed for early childhood development, Islamic values, creativity, confidence, character, and parent-supported learning from home."
+          badge="Learning Approach"
         />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
@@ -151,6 +164,8 @@ export function LearningSection() {
               key={pillar.title}
               title={pillar.title}
               description={pillar.description}
+              urduTitle={pillar.urduTitle}
+              urduDescription={pillar.urduDescription}
               icon={pillar.icon}
               index={i}
             />

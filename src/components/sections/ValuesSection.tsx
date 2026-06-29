@@ -2,9 +2,9 @@
 
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CoreValuesCarousel } from "@/components/values/CoreValuesCarousel";
 import { ValuesBackdrop } from "@/components/values/ValuesBackdrop";
+import { BilingualSectionHeader } from "@/components/ui/BilingualLayout";
 
 export function ValuesSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -56,10 +56,13 @@ export function ValuesSection() {
       <ValuesBackdrop />
 
       <div className="relative mx-auto max-w-[1400px]">
-        <SectionHeading
-          title="Our Core Values"
-          subtitle="Each value is a leaf on our tree — nurturing character, wisdom, and purpose."
-          className="mb-16 sm:mb-20 lg:mb-24 [&_h2]:text-[2.65rem] sm:[&_h2]:text-5xl lg:[&_h2]:text-6xl [&_p]:mt-6 [&_p]:max-w-3xl [&_p]:text-lg sm:[&_p]:text-xl"
+        <BilingualSectionHeader
+          urduTitle="ہماری بنیادی اقدار"
+          urduSubtitle="ہر قدر ہمارے درخت کا ایک پتہ ہے — کردار، حکمت اور مقصد کی پرورش کرتا ہے۔"
+          englishTitle="Our Core Values"
+          englishSubtitle="Each value is a leaf on our tree — nurturing character, wisdom, and purpose in every child."
+          badge="Values"
+          className="mb-16 sm:mb-20 lg:mb-24"
         />
 
         <div ref={carouselRef}>

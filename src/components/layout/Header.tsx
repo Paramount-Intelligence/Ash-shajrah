@@ -3,12 +3,9 @@
 
 
 import { useState, useEffect } from "react";
-
+import Link from "next/link";
 import { NAV_LINKS } from "@/lib/data";
-
 import { BrandLogo } from "@/components/ui/BrandLogo";
-
-
 
 export function Header() {
 
@@ -49,133 +46,69 @@ export function Header() {
     >
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
-
-        <a href="#" className="group shrink-0 transition-opacity hover:opacity-90">
-
+        <Link href="/" className="group shrink-0 transition-opacity hover:opacity-90">
           <BrandLogo variant="header" priority />
-
-        </a>
-
-
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-
           {NAV_LINKS.map((link) => (
-
-            <a
-
+            <Link
               key={link.href}
-
               href={link.href}
-
               className="text-sm font-medium text-emerald-deep/85 transition-colors hover:text-emerald"
-
             >
-
               {link.label}
-
-            </a>
-
+            </Link>
           ))}
-
         </nav>
 
-
-
-        <a
-
-          href="#contact"
-
+        <Link
+          href="/register"
           className="hidden rounded-full bg-emerald px-5 py-2.5 text-sm font-semibold text-cream shadow-md shadow-emerald/20 transition-all hover:bg-emerald-light hover:shadow-emerald/30 md:inline-flex"
-
         >
-
           Enroll
-
-        </a>
-
-
+        </Link>
 
         <button
-
           type="button"
-
           aria-label="Toggle menu"
-
           className="flex flex-col gap-1.5 md:hidden"
-
           onClick={() => setMenuOpen(!menuOpen)}
-
         >
-
           <span
-
             className={`block h-0.5 w-6 bg-emerald-deep transition-transform ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
-
           />
-
           <span
-
             className={`block h-0.5 w-6 bg-emerald-deep transition-opacity ${menuOpen ? "opacity-0" : ""}`}
-
           />
-
           <span
-
             className={`block h-0.5 w-6 bg-emerald-deep transition-transform ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
-
           />
-
         </button>
-
       </div>
 
-
-
       {menuOpen && (
-
         <nav className="border-t border-emerald/10 bg-cream/95 px-6 py-6 shadow-lg backdrop-blur-xl md:hidden">
-
           <div className="flex flex-col gap-4">
-
             {NAV_LINKS.map((link) => (
-
-              <a
-
+              <Link
                 key={link.href}
-
                 href={link.href}
-
                 onClick={() => setMenuOpen(false)}
-
                 className="text-base font-medium text-emerald-deep"
-
               >
-
                 {link.label}
-
-              </a>
-
+              </Link>
             ))}
-
-            <a
-
-              href="#contact"
-
+            <Link
+              href="/register"
               onClick={() => setMenuOpen(false)}
-
               className="mt-2 rounded-full bg-emerald px-5 py-3 text-center text-sm font-semibold text-cream"
-
             >
-
               Enroll
-
-            </a>
-
+            </Link>
           </div>
-
         </nav>
-
       )}
 
     </header>

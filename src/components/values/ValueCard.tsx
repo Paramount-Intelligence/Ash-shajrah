@@ -3,15 +3,18 @@
 import { useRef, useCallback } from "react";
 import { gsap } from "@/lib/gsap";
 import { ValueIcon } from "@/components/values/ValueIcon";
+import { BilingualValueContent } from "@/components/ui/BilingualLayout";
 
 export type ValueCardProps = {
   title: string;
   description: string;
+  urduTitle: string;
+  urduDescription: string;
   index: number;
   isActive: boolean;
 };
 
-export function ValueCard({ title, description, index, isActive }: ValueCardProps) {
+export function ValueCard({ title, description, urduTitle, urduDescription, index, isActive }: ValueCardProps) {
   const cardRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +63,7 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={resetTilt}
-      className={`values-card group relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-3xl p-[1px] transition-all duration-700 ease-out sm:min-h-[260px] lg:min-h-[290px] xl:min-h-[300px] ${
+      className={`values-card group relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-3xl p-[1px] transition-all duration-700 ease-out sm:min-h-[320px] lg:min-h-[360px] xl:min-h-[380px] ${
         isActive
           ? "values-card--active z-10 scale-[1.06] opacity-100"
           : "scale-[0.94] opacity-[0.72] hover:scale-[0.97] hover:opacity-90"
@@ -111,9 +114,7 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
         {/* Bottom accent line */}
         <div
           className={`pointer-events-none absolute bottom-0 left-0 right-0 h-[3px] transition-opacity duration-700 ${
-            isActive
-              ? "opacity-100"
-              : "opacity-0 group-hover:opacity-70"
+            isActive ? "opacity-100" : "opacity-0 group-hover:opacity-70"
           }`}
           style={{
             background:
@@ -123,12 +124,13 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
         />
 
         <div className="relative flex flex-1 flex-col px-7 py-7 sm:px-8 sm:py-8">
+          {/* Icon row */}
           <div className="mb-5 flex items-start justify-between gap-4">
             <div
               ref={badgeRef}
               onMouseEnter={handleBadgeEnter}
               onMouseLeave={handleBadgeLeave}
-              className={`relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border shadow-lg transition-colors duration-500 ${
+              className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border shadow-lg transition-colors duration-500 ${
                 isActive
                   ? "border-gold/40 bg-gradient-to-br from-white to-cream/90 shadow-gold/20"
                   : "border-emerald/15 bg-white/80 shadow-emerald-deep/10 group-hover:border-emerald/30"
@@ -136,7 +138,7 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
             >
               <ValueIcon
                 title={title}
-                className={`h-8 w-8 transition-colors duration-500 ${
+                className={`h-7 w-7 transition-colors duration-500 ${
                   isActive ? "text-emerald-deep" : "text-emerald group-hover:text-emerald-deep"
                 }`}
               />
@@ -144,10 +146,6 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
                 className={`absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-white shadow-sm ${
                   isActive ? "bg-gold" : "bg-gold/60"
                 }`}
-                aria-hidden
-              />
-              <span
-                className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/10 to-transparent opacity-60"
                 aria-hidden
               />
             </div>
@@ -161,22 +159,16 @@ export function ValueCard({ title, description, index, isActive }: ValueCardProp
             </span>
           </div>
 
-          <h3
-            className={`font-display text-2xl font-semibold leading-tight transition-colors duration-500 sm:text-[1.65rem] lg:text-3xl ${
-              isActive ? "text-emerald-deep" : "text-emerald group-hover:text-emerald-deep"
-            }`}
-          >
-            {title}
-          </h3>
+          {/* Bilingual content */}
+          <BilingualValueContent
+            urduTitle={urduTitle}
+            urduLine={urduDescription}
+            englishTitle={title}
+            englishLine={description}
+            isActive={isActive}
+          />
 
-          <p
-            className={`mt-3 flex-1 text-base leading-relaxed transition-colors duration-500 sm:text-[1.05rem] ${
-              isActive ? "text-emerald/85" : "text-emerald/65 group-hover:text-emerald/78"
-            }`}
-          >
-            {description}
-          </p>
-
+          {/* Bottom accent line */}
           <div
             className={`mt-5 h-px w-full origin-left transition-transform duration-700 ${
               isActive ? "scale-x-100" : "scale-x-[0.35] group-hover:scale-x-75"

@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { ProgramsSection } from "@/components/sections/ProgramsSection";
 import { ValuesSection } from "@/components/sections/ValuesSection";
 import { LearningSection } from "@/components/sections/LearningSection";
 import { OnlineLearningSection } from "@/components/sections/OnlineLearningSection";
@@ -28,6 +29,7 @@ export function HomePageContent() {
       <main>
         <HeroSection />
         <AboutSection />
+        <ProgramsSection />
         <ValuesSection />
         <LearningSection />
         <OnlineLearningSection />

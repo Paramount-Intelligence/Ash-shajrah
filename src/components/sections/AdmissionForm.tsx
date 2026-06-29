@@ -18,7 +18,31 @@ const INITIAL: ContactFormData = {
 const inputClass =
   "form-input w-full rounded-xl border border-emerald/15 bg-white/90 px-4 py-2.5 text-sm text-emerald-deep outline-none transition-all duration-300 placeholder:text-emerald/35 focus:border-emerald focus:bg-white focus:shadow-[0_0_0_3px_rgba(45,138,106,0.12)]";
 
-const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-emerald/70";
+function BilingualLabel({
+  htmlFor,
+  en,
+  ur,
+  required,
+}: {
+  htmlFor: string;
+  en: string;
+  ur: string;
+  required?: boolean;
+}) {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className="mb-1.5 flex items-baseline justify-between gap-2"
+    >
+      <span className="text-xs font-semibold uppercase tracking-wider text-emerald/70">
+        {en} {required && <span className="text-gold">*</span>}
+      </span>
+      <span dir="rtl" lang="ur" className="font-urdu text-xs leading-[2] text-emerald/50">
+        {ur}
+      </span>
+    </label>
+  );
+}
 
 export function AdmissionForm() {
   const [form, setForm] = useState<ContactFormData>(INITIAL);
@@ -78,7 +102,10 @@ export function AdmissionForm() {
           ✓
         </div>
         <p className="font-display text-xl font-semibold leading-relaxed text-emerald-deep">
-          Thank you! Your inquiry has been sent successfully.
+          Thank you! Your inquiry has been sent.
+        </p>
+        <p dir="rtl" lang="ur" className="font-urdu mt-2 text-base leading-[2] text-emerald/70">
+          شکریہ! آپ کی درخواست بھیج دی گئی ہے۔
         </p>
         <button
           type="button"
@@ -102,18 +129,19 @@ export function AdmissionForm() {
 
       <div className="relative">
         {submitError && (
-          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {submitError}
+          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3">
+            <p className="text-sm text-red-700">{submitError}</p>
+            <p dir="rtl" lang="ur" className="font-urdu mt-1 text-right text-sm leading-[2] text-red-600">
+              کچھ غلط ہو گیا۔ واٹس ایپ پر رابطہ کریں۔
+            </p>
           </div>
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label htmlFor="name" className={labelClass}>
-              Name <span className="text-gold">*</span>
-            </label>
+            <BilingualLabel htmlFor="contact-name" en="Name" ur="نام" required />
             <input
-              id="name"
+              id="contact-name"
               type="text"
               required
               value={form.name}
@@ -125,11 +153,9 @@ export function AdmissionForm() {
           </div>
 
           <div>
-            <label htmlFor="whatsapp" className={labelClass}>
-              WhatsApp Number <span className="text-gold">*</span>
-            </label>
+            <BilingualLabel htmlFor="contact-whatsapp" en="WhatsApp Number" ur="واٹس ایپ نمبر" required />
             <input
-              id="whatsapp"
+              id="contact-whatsapp"
               type="tel"
               required
               value={form.whatsapp}
@@ -137,17 +163,13 @@ export function AdmissionForm() {
               className={inputClass}
               placeholder="+92 300 0000000"
             />
-            {errors.whatsapp && (
-              <p className="mt-1 text-xs text-red-600">{errors.whatsapp}</p>
-            )}
+            {errors.whatsapp && <p className="mt-1 text-xs text-red-600">{errors.whatsapp}</p>}
           </div>
 
           <div className="md:col-span-2">
-            <label htmlFor="email" className={labelClass}>
-              Email Address <span className="text-gold">*</span>
-            </label>
+            <BilingualLabel htmlFor="contact-email" en="Email Address" ur="ای میل" required />
             <input
-              id="email"
+              id="contact-email"
               type="email"
               required
               value={form.email}
@@ -159,11 +181,9 @@ export function AdmissionForm() {
           </div>
 
           <div className="md:col-span-2">
-            <label htmlFor="message" className={labelClass}>
-              Message
-            </label>
+            <BilingualLabel htmlFor="contact-message" en="Message" ur="پیغام" />
             <textarea
-              id="message"
+              id="contact-message"
               rows={3}
               value={form.message}
               onChange={(e) => update("message", e.target.value)}
@@ -173,6 +193,7 @@ export function AdmissionForm() {
           </div>
         </div>
 
+        {/* Honeypot */}
         <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
           <label htmlFor="website">Website</label>
           <input
@@ -186,13 +207,13 @@ export function AdmissionForm() {
           />
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex flex-col items-center gap-2">
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold tracking-wide text-cream shadow-lg shadow-emerald/25 transition-all duration-300 hover:bg-emerald-light hover:shadow-emerald/40 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[220px]"
+            className="w-full rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold tracking-wide text-cream shadow-lg shadow-emerald/25 transition-all duration-300 hover:bg-emerald-light hover:shadow-emerald/40 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[260px]"
           >
-            {loading ? "Sending..." : "Send Inquiry"}
+            {loading ? "Sending..." : "Send Inquiry / پیغام بھیجیں"}
           </button>
         </div>
       </div>

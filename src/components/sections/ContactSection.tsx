@@ -3,9 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@/lib/gsap";
 import { scrollReveal } from "@/lib/animations";
-import { Button } from "@/components/ui/Button";
-import { SITE } from "@/lib/data";
 import { AdmissionForm } from "@/components/sections/AdmissionForm";
+import { BilingualSectionHeader } from "@/components/ui/BilingualLayout";
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,28 +40,23 @@ export function ContactSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-4xl text-center">
-        <h2
-          data-contact-item
-          className="font-display text-4xl font-semibold text-emerald-deep md:text-5xl"
-        >
-          Start Your Online Learning Journey
-        </h2>
-
-        <p
-          data-contact-item
-          className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-emerald"
-        >
-          Fill out the form below and our team will contact you soon.
-        </p>
-
-        <div data-contact-item className="mt-6 flex justify-center">
-          <Button href={SITE.contact.whatsapp} variant="secondary">
-            Contact on WhatsApp
-          </Button>
+      <div className="relative mx-auto max-w-4xl">
+        <div data-contact-item>
+          <BilingualSectionHeader
+            urduTitle="اپنا آن لائن تعلیمی سفر شروع کریں"
+            urduSubtitle="نیچے دیا گیا فارم مکمل کریں، ہماری ٹیم جلد آپ سے رابطہ کرے گی۔"
+            englishTitle="Start Your Online Learning Journey"
+            englishSubtitle="Fill out the form below and our team will contact you soon."
+            badge="Contact Us"
+          />
         </div>
 
-        <div data-contact-item className="mt-8 text-left">
+
+
+
+
+        {/* Admission Form */}
+        <div data-contact-item>
           <AdmissionForm />
         </div>
       </div>

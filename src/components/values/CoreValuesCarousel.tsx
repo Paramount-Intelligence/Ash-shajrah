@@ -134,6 +134,8 @@ export function CoreValuesCarousel() {
                 <ValueCard
                   title={value.title}
                   description={value.description}
+                  urduTitle={value.urduTitle}
+                  urduDescription={value.urduDescription}
                   index={index}
                   isActive={index === selectedIndex}
                 />

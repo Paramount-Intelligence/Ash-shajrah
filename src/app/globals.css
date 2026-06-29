@@ -11,6 +11,7 @@
   --color-warm-brown: #5c4a32;
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-body: "Outfit", system-ui, sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", serif;
 }
 
 @layer base {
@@ -33,8 +34,25 @@
     font-family: var(--font-display), Georgia, "Times New Roman", serif;
   }
 
+  .font-urdu {
+    font-family: var(--font-urdu), serif;
+    line-height: 2.2;
+    letter-spacing: 0;
+  }
+
   .glass-card {
     @apply rounded-2xl border border-emerald/10 bg-white/90 shadow-xl shadow-emerald-deep/5;
+  }
+
+  .bilingual-card-inner {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .bilingual-card-inner:hover {
+    box-shadow:
+      0 16px 48px -8px rgba(13, 59, 46, 0.14),
+      0 0 0 1px rgba(201, 162, 39, 0.12);
+    transform: translateY(-2px);
   }
 
   .text-gradient-gold {
